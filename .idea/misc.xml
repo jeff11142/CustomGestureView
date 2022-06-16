@@ -5,7 +5,9 @@
       <map>
         <entry key="../../../../layout/custom_preview.xml" value="0.23703703703703705" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.14553990610328638" />
+        <entry key="customGestureLib/src/main/res/drawable/bg_radius_20dp_blue.xml" value="0.1675" />
         <entry key="customGestureLib/src/main/res/layout/activity_gesture.xml" value="0.19701086956521738" />
+        <entry key="customGestureLib/src/main/res/layout/activity_gesture_look.xml" value="0.19701086956521738" />
         <entry key="customGestureLib/src/main/res/layout/layout.xml" value="0.19701086956521738" />
       </map>
     </option>
