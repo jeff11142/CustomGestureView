@@ -5,13 +5,20 @@ import static android.content.Context.ACTIVITY_SERVICE;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
+import android.os.Build;
 import android.text.TextUtils;
+
+import androidx.annotation.RequiresApi;
+
+import com.jeff.customgesturelib.setting.UserData;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Consumer;
 
+import kotlin.Unit;
 import me.zhanghai.android.patternlock.PatternUtils;
 import me.zhanghai.android.patternlock.PatternView;
 
@@ -30,6 +37,7 @@ public class PatternLockUtils {
     public static final int CONFIRM_PATTERN_LOCK = 998;
     public static final int CLOSE_APP = 999;
 
+    public static Consumer<Integer> mSpecialGestureEvent;
 
     private static int mPatternStatus;
 
@@ -37,6 +45,10 @@ public class PatternLockUtils {
 
     public static Boolean isUpdateDialogShowed = false;
     public static String appVersion = "AppVersion";
+
+    public static ArrayList<UserData> activeAccountList = new ArrayList<>();
+
+    public static Unit logoutEvent = null;
 
     private PatternLockUtils() {
     }
@@ -77,15 +89,13 @@ public class PatternLockUtils {
                 PreferenceContract.DEFAULT_DELETE_PATTERN_SHA1, context);
     }
 
-//    public static void setUserId(int userId, Context context) {
-//        PreferenceUtils.putInt(PreferenceContract.KEY_USER_ID,
-//                userId, context);
-//    }
-//
-//    public static int getUserId(Context context) {
-//        return PreferenceUtils.getInt(PreferenceContract.KEY_USER_ID,
-//                PreferenceContract.DEFAULT_USER_ID, context);
-//    }
+    public static void setActiveAccountList(ArrayList<UserData> list) {
+        activeAccountList = list;
+    }
+
+    public static ArrayList<UserData> getActiveAccountList() {
+        return activeAccountList;
+    }
 
     public static void setUserIdSet(ArrayList<String> userIdList, Context context) {
         PreferenceUtils.putString(PreferenceContract.KEY_USER_ID,
@@ -121,22 +131,6 @@ public class PatternLockUtils {
         }
     }
 
-    public static boolean hasPattern(Context context) {
-        return !TextUtils.isEmpty(getPattern(context));
-    }
-
-    public static int getPatternType(List<PatternView.Cell> pattern, Context context) {
-        int patternType;
-        if (TextUtils.equals(PatternUtils.patternToSha1String(pattern), getPattern(context))) {
-            patternType = PATTERN_STATUS_UNLOCK;
-        } else if (TextUtils.equals(PatternUtils.patternToSha1String(pattern), getDeletePattern(context))) {
-            patternType = PATTERN_STATUS_DELETE;
-        } else {
-            patternType = PATTERN_STATUS_WRONG;
-        }
-        return patternType;
-    }
-
     public static boolean isPatternSame(List<PatternView.Cell> pattern, Context context) {
         return TextUtils.equals(PatternUtils.patternToSha1String(pattern), getPattern(context));
     }
@@ -163,9 +157,13 @@ public class PatternLockUtils {
         return Integer.parseInt(String.format(pattern, text).replace(" ", "0"));
     }
 
-    public static void clearAppData(Context context) {
-        ((ActivityManager) context.getSystemService(ACTIVITY_SERVICE))
-                .clearApplicationUserData();
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public static void setSpecialGestureEvent(Consumer<Integer> event) {
+        mSpecialGestureEvent = event;
+    }
+
+    public static Consumer<Integer> getSpecialGestureEvent() {
+        return mSpecialGestureEvent;
     }
 
     public static void clearPattern(Context context) {
