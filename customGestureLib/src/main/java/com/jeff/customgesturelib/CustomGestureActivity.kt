@@ -135,11 +135,10 @@ class CustomGestureActivity : AppCompatActivity(), OnGestureLockListener {
                 getString(R.string.Reset)
             ) { _, _ ->
                 clearPattern(this@CustomGestureActivity)
-                setResult(GESTURE_FORGOT)
+//                setResult(GESTURE_FORGOT)
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     getSpecialGestureEvent().accept(GESTURE_LOGOUT)
                 }
-
                 finish()
             }
             forgotDialog = builder.create()
@@ -190,7 +189,7 @@ class CustomGestureActivity : AppCompatActivity(), OnGestureLockListener {
                 }
                 GestureViewModel.SettingType.UNLOCK_LOGOUT -> {
                     isNeedtoShowGestureLock = false
-                    setResult(GESTURE_LOGOUT)
+//                    setResult(GESTURE_LOGOUT)
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                         getSpecialGestureEvent().accept(GESTURE_LOGOUT)
                     }

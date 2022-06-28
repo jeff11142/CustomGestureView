@@ -13,13 +13,14 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-//        setGestureInfo()
+        setGestureInfo()
     }
 
     private fun setGestureInfo() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             PatternLockUtils.setSpecialGestureEvent {
                 Toast.makeText(this, "logout", Toast.LENGTH_LONG).show()
+                PatternLockUtils.setUserIdSet(arrayListOf(), this)
             }
         }
 
