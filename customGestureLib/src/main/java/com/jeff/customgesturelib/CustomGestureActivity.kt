@@ -4,7 +4,6 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.Window
@@ -17,6 +16,7 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.jeff.customgesturelib.databinding.ActivityGestureLookBinding
 import com.jeff.customgesturelib.setting.SettingAccountDialog
+import com.jeff.customgesturelib.setting.UserData
 import com.jeff.customgesturelib.utility.PatternLockUtils
 import com.jeff.customgesturelib.utility.PatternLockUtils.*
 import com.jeff.customgesturelib.utility.VersionInfo
@@ -31,14 +31,28 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-class CustomGestureActivity : AppCompatActivity(), OnGestureLockListener {
+open class CustomGestureActivity : AppCompatActivity(), OnGestureLockListener {
     private lateinit var binding: ActivityGestureLookBinding
     private var updateDialog: AlertDialog? = null
     private var forgotDialog: AlertDialog? = null
     private var appVersion: String = ""
-
     private val gestureViewModel: GestureViewModel by lazy {
         ViewModelProvider(this)[GestureViewModel::class.java]
+    }
+
+    open fun onLogOutEvent() {
+        setUserIdSet(arrayListOf(), this)
+        finishActivity()
+    }
+
+    open fun onForgotEvent() {
+        clearPattern(this@CustomGestureActivity)
+        setUserIdSet(arrayListOf(), this)
+        finish()
+    }
+
+    open fun getAccountList(): MutableList<UserData> {
+        return mutableListOf()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,9 +71,26 @@ class CustomGestureActivity : AppCompatActivity(), OnGestureLockListener {
 
     override fun onResume() {
         super.onResume()
-        if(!appVersion.isNullOrBlank()){
-            if (gestureViewModel.isNeedToShowSettingDialog(this, appVersion ?: "")) {
+        if (appVersion.isNotBlank()) {
+            if (gestureViewModel.isNeedToShowSettingDialog(this, appVersion)) {
                 showSettingDialog()
+            }
+        }
+    }
+
+    override fun onStarted() {
+    }
+
+    override fun onProgress(progress: String?) {
+    }
+
+    override fun onComplete(result: String?) {
+        when (gestureViewModel.getGestureLockSuccess(this, result)) {
+            true -> {
+                binding.gestureView.clearView()
+            }
+            else -> {
+                binding.gestureView.showErrorStatus(1000)
             }
         }
     }
@@ -134,12 +165,7 @@ class CustomGestureActivity : AppCompatActivity(), OnGestureLockListener {
             builder.setNegativeButton(
                 getString(R.string.Reset)
             ) { _, _ ->
-                clearPattern(this@CustomGestureActivity)
-//                setResult(GESTURE_FORGOT)
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    getSpecialGestureEvent().accept(GESTURE_LOGOUT)
-                }
-                finish()
+                onForgotEvent()
             }
             forgotDialog = builder.create()
         } else {
@@ -184,16 +210,10 @@ class CustomGestureActivity : AppCompatActivity(), OnGestureLockListener {
         gestureViewModel.nowType.observe(this) {
             when (it) {
                 GestureViewModel.SettingType.UNLOCK -> {
-                    isNeedtoShowGestureLock = false
-                    finish()
+                    finishActivity()
                 }
                 GestureViewModel.SettingType.UNLOCK_LOGOUT -> {
-                    isNeedtoShowGestureLock = false
-//                    setResult(GESTURE_LOGOUT)
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        getSpecialGestureEvent().accept(GESTURE_LOGOUT)
-                    }
-                    finish()
+                    onLogOutEvent()
                 }
                 else -> {
                     val anim = AlphaAnimation(1.0f, 0.0f)
@@ -325,23 +345,11 @@ class CustomGestureActivity : AppCompatActivity(), OnGestureLockListener {
 
     private fun showSettingDialog() {
         val settingDialog = SettingAccountDialog(this@CustomGestureActivity)
-        settingDialog.show(false,  appVersion)
+        settingDialog.show(false, appVersion, getAccountList())
     }
 
-    override fun onStarted() {
-    }
-
-    override fun onProgress(progress: String?) {
-    }
-
-    override fun onComplete(result: String?) {
-        when (gestureViewModel.getGestureLockSuccess(this, result)) {
-            true -> {
-                binding.gestureView.clearView()
-            }
-            else -> {
-                binding.gestureView.showErrorStatus(1000)
-            }
-        }
+    private fun finishActivity() {
+        isNeedtoShowGestureLock = false
+        finish()
     }
 }

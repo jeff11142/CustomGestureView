@@ -5,7 +5,6 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.Switch
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -14,13 +13,13 @@ import com.jeff.customgesturelib.utility.PatternLockUtils
 
 class SettingAdapter(context: Context) : RecyclerView.Adapter<SettingAdapter.ViewHolder>() {
     var userIdSet: MutableList<String> = PatternLockUtils.getUserIdSet(context)
-    var userInfoList: MutableList<UserData?> = mutableListOf()
+    var userInfoList: MutableList<UserData> = mutableListOf()
     var checkedUserIdList: ArrayList<String?> = arrayListOf()
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         //把layout檔的元件們拉進來，指派給當地變數
-        val photo: ImageView = itemView.findViewById(R.id.iv_photo)
+//        val photo: ImageView = itemView.findViewById(R.id.iv_photo)
         val name: TextView = itemView.findViewById(R.id.tv_name)
         val photoName: TextView = itemView.findViewById(R.id.tv_photo)
 
@@ -69,14 +68,14 @@ class SettingAdapter(context: Context) : RecyclerView.Adapter<SettingAdapter.Vie
     }
 
     //更新資料用
-    fun updateList(list: MutableList<UserData?>) {
+    fun updateList(list: MutableList<UserData>) {
         if (list.size > 0)
             userInfoList = list
     }
 
-    fun getCheckedList(): MutableList<String?> {
-        return checkedUserIdList
-    }
+//    fun getCheckedList(): MutableList<String?> {
+//        return checkedUserIdList
+//    }
 
     private fun addValueToMutableSet(value: String) {
         if (!checkedUserIdList.contains(value)) {

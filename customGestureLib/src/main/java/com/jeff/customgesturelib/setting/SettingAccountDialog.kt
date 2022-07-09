@@ -15,15 +15,15 @@ import com.jeff.customgesturelib.utility.PreferenceUtils
 
 class SettingAccountDialog(context: Context) : AlertDialog.Builder(context) {
 
-    fun show(isCancelable: Boolean , version: String?) {
-        if (isHaveActivatedAccount()) {
+    fun show(isCancelable: Boolean , version: String? , accountList: MutableList<UserData>) {
+        if (accountList.size > 0) {
             val customLayout =
                 LayoutInflater.from(context).inflate(R.layout.dialog_special_account_setting, null)
             val builder = AlertDialog.Builder(context)
             builder.setView(customLayout)
 
             val alertDialog: AlertDialog = builder.create()
-            initView(customLayout, alertDialog, version)
+            initView(customLayout, alertDialog, version, accountList)
             alertDialog.setCancelable(isCancelable)
             alertDialog.show()
         } else {
@@ -32,7 +32,12 @@ class SettingAccountDialog(context: Context) : AlertDialog.Builder(context) {
         }
     }
 
-    private fun initView(view: View?, alertDialog: AlertDialog, version: String?) {
+    private fun initView(
+        view: View?,
+        alertDialog: AlertDialog,
+        version: String?,
+        accountList: MutableList<UserData>
+    ) {
         view?.apply {
             val settingAdapter = context?.let { SettingAdapter(it) }
             val recyclerView = findViewById<RecyclerView>(R.id.rv_user_list)
@@ -53,7 +58,7 @@ class SettingAccountDialog(context: Context) : AlertDialog.Builder(context) {
                 alertDialog.dismiss()
             }
 
-            settingAdapter?.updateList(PatternLockUtils.getActiveAccountList())
+            settingAdapter?.updateList(accountList)
 
             PreferenceUtils.putString(
                 PreferenceContract.KEY_APP_VERSION,
@@ -71,8 +76,8 @@ class SettingAccountDialog(context: Context) : AlertDialog.Builder(context) {
 //        }
 //        return userInfoList
 //    }
-
-    private fun isHaveActivatedAccount(): Boolean {
-        return PatternLockUtils.getActiveAccountList().size > 0
-    }
+//
+//    private fun isHaveActivatedAccount(): Boolean {
+//        return PatternLockUtils.getActiveAccountList().size > 0
+//    }
 }
