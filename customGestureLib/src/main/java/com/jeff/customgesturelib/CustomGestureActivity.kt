@@ -149,7 +149,6 @@ open class CustomGestureActivity : AppCompatActivity(), OnGestureLockListener {
                 getString(R.string.Reset)
             ) { _, _ ->
                 clearPattern(this@CustomGestureActivity)
-                setUserIdSet(arrayListOf(), this)
                 setResult(GESTURE_LOGOUT)
                 finish()
             }
@@ -199,7 +198,7 @@ open class CustomGestureActivity : AppCompatActivity(), OnGestureLockListener {
                     finishActivity()
                 }
                 GestureViewModel.SettingType.UNLOCK_LOGOUT -> {
-                    setUserIdSet(arrayListOf(), this)
+//                    setUserIdSet(arrayListOf(), this)
                     setResult(GESTURE_LOGOUT)
                     finishActivity()
                 }
