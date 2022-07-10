@@ -15,7 +15,7 @@ import com.jeff.customgesturelib.utility.PreferenceUtils
 
 class SettingAccountDialog(context: Context) : AlertDialog.Builder(context) {
 
-    fun show(isCancelable: Boolean , version: String? , accountList: MutableList<UserData>) {
+    fun show(isCancelable: Boolean, version: String?, accountList: MutableList<UserData>) {
         if (accountList.size > 0) {
             val customLayout =
                 LayoutInflater.from(context).inflate(R.layout.dialog_special_account_setting, null)
@@ -66,18 +66,4 @@ class SettingAccountDialog(context: Context) : AlertDialog.Builder(context) {
             )
         }
     }
-
-//    private fun getAllUserTGInfoList(): MutableList<TLRPC.User?> {
-//        val userInfoList: MutableList<TLRPC.User?> = mutableListOf()
-//        for (a in 0 until UserConfig.MAX_ACCOUNT_COUNT) {
-//            if (UserConfig.getInstance(a).currentUser != null) {
-//                userInfoList.add(UserConfig.getInstance(a).currentUser)
-//            }
-//        }
-//        return userInfoList
-//    }
-//
-//    private fun isHaveActivatedAccount(): Boolean {
-//        return PatternLockUtils.getActiveAccountList().size > 0
-//    }
 }

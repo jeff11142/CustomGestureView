@@ -16,7 +16,6 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.jeff.customgesturelib.databinding.ActivityGestureLookBinding
 import com.jeff.customgesturelib.setting.SettingAccountDialog
-import com.jeff.customgesturelib.setting.UserData
 import com.jeff.customgesturelib.utility.PatternLockUtils
 import com.jeff.customgesturelib.utility.PatternLockUtils.*
 import com.jeff.customgesturelib.utility.VersionInfo
@@ -40,21 +39,6 @@ open class CustomGestureActivity : AppCompatActivity(), OnGestureLockListener {
         ViewModelProvider(this)[GestureViewModel::class.java]
     }
 
-    open fun onLogOutEvent() {
-        setUserIdSet(arrayListOf(), this)
-        finishActivity()
-    }
-
-    open fun onForgotEvent() {
-        clearPattern(this@CustomGestureActivity)
-        setUserIdSet(arrayListOf(), this)
-        finish()
-    }
-
-    open fun getAccountList(): MutableList<UserData> {
-        return mutableListOf()
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setStatusBar()
@@ -65,7 +49,6 @@ open class CustomGestureActivity : AppCompatActivity(), OnGestureLockListener {
         gestureViewModel.checkGestureLockFromSharedPreferences(this)
         initView()
         checkAppVersion()
-
         appVersion = intent.getStringExtra(PatternLockUtils.appVersion) ?: ""
     }
 
@@ -165,7 +148,10 @@ open class CustomGestureActivity : AppCompatActivity(), OnGestureLockListener {
             builder.setNegativeButton(
                 getString(R.string.Reset)
             ) { _, _ ->
-                onForgotEvent()
+                clearPattern(this@CustomGestureActivity)
+                setUserIdSet(arrayListOf(), this)
+                setResult(GESTURE_LOGOUT)
+                finish()
             }
             forgotDialog = builder.create()
         } else {
@@ -213,7 +199,9 @@ open class CustomGestureActivity : AppCompatActivity(), OnGestureLockListener {
                     finishActivity()
                 }
                 GestureViewModel.SettingType.UNLOCK_LOGOUT -> {
-                    onLogOutEvent()
+                    setUserIdSet(arrayListOf(), this)
+                    setResult(GESTURE_LOGOUT)
+                    finishActivity()
                 }
                 else -> {
                     val anim = AlphaAnimation(1.0f, 0.0f)
@@ -345,7 +333,8 @@ open class CustomGestureActivity : AppCompatActivity(), OnGestureLockListener {
 
     private fun showSettingDialog() {
         val settingDialog = SettingAccountDialog(this@CustomGestureActivity)
-        settingDialog.show(false, appVersion, getAccountList())
+
+        settingDialog.show(false, appVersion, getActiveAccountList())
     }
 
     private fun finishActivity() {
