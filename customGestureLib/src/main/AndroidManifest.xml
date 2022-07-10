@@ -6,7 +6,8 @@
         android:supportsRtl="false">
         <activity
             android:name=".CustomGestureActivity"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         </activity>
     </application>
 </manifest>
