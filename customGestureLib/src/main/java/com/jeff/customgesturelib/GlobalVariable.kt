@@ -8,10 +8,40 @@ class GlobalVariable : Application() {
         var appVersion = ""
         var logoutUnit: (() -> Unit)? = null
         var settingUnit: (() -> Unit)? = null
-            get() = {
-
-            }
 
         var isNowCheckEmergencyStatus: Boolean = false
     }
+
+    fun getLogoutUnit(): (() -> Unit)? {
+        return logoutUnit
+    }
+
+    fun setLogoutUnit(unit: () -> Unit) {
+        logoutUnit = unit
+    }
+
+    fun getSettingUnit(): (() -> Unit)? {
+        return settingUnit
+    }
+
+    fun setSettingUnit(unit: () -> Unit) {
+        settingUnit = unit
+    }
+
+    fun setAppVersion(version: String) {
+        appVersion = version
+    }
+
+    fun getAppVersion(): String {
+        return appVersion
+    }
+
+    fun setIsNowCheckEmergencyStatus(status: Boolean) {
+        isNowCheckEmergencyStatus = status
+    }
+
+    fun getIsNowCheckEmergencyStatus(): Boolean {
+        return isNowCheckEmergencyStatus
+    }
+
 }
