@@ -22,6 +22,7 @@ class EmergencyStatusUtils {
                 response: Response<EmergencyData>
             ) {
                 //當data陣列中emergency的值為1時，登出所有帳號
+
                 val data = response.body()?.data
 
                 Log.d(TAG, "emergency = ${data?.emergency}")
