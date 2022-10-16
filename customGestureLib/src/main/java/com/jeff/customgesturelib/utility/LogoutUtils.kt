@@ -1,19 +1,22 @@
 package com.jeff.customgesturelib.utility
 
-import android.util.Log
+open class LogoutUtils {
+    var logoutUnit: (() -> Unit)? = null
+    var logoutStatus: Int? = null
 
-class LogoutUtils {
-    public var logoutUnit: () -> Unit = {}
-
-    @JvmName("setLogoutUnit1")
-    fun setLogoutUnit(unit: () -> Unit){
-        logoutUnit = unit
-        unit
-        Log.e("jeff", "setLogoutUnit")
+    fun setLogoutEvent(event: () -> Unit) {
+        logoutUnit = event
     }
 
-    @JvmName("getLogoutUnit1")
-    fun getLogoutUnit(): () -> Unit {
+    fun getLogoutEvent(): (() -> Unit)? {
         return logoutUnit
+    }
+
+    fun setLogoutStatus(status: Int) {
+        logoutStatus = status
+    }
+
+    fun getLogoutStatus(): Int {
+        return logoutStatus ?: 0
     }
 }

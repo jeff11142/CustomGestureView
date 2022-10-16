@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.jeff.customgesturelib">
     <application
+        android:name=".GlobalVariable"
         android:allowBackup="false"
         android:supportsRtl="false">
         <activity
@@ -9,5 +10,7 @@
             android:exported="true"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         </activity>
+
+        <service android:enabled="true" android:name="com.jeff.customgesturelib.service.BackgroundCheckService" />
     </application>
 </manifest>

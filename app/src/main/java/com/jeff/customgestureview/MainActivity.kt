@@ -2,11 +2,14 @@ package com.jeff.customgestureview
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.jeff.customgesturelib.CustomGestureActivity
+import com.jeff.customgesturelib.GlobalVariable
 import com.jeff.customgesturelib.setting.UserData
+import com.jeff.customgesturelib.utility.LogoutUtils
 import com.jeff.customgesturelib.utility.PatternLockUtils
 
 class MainActivity : AppCompatActivity() {
@@ -45,14 +48,22 @@ class MainActivity : AppCompatActivity() {
         list.add(data)
         list.add(data1)
         PatternLockUtils.setActiveAccountList(list)
+
+        GlobalVariable.logoutUnit =  {
+            Log.e("jeff", "logout")
+        }
+
+        GlobalVariable.settingUnit = {
+            Log.e("jeff", "setting")
+        }
+
     }
 
     override fun onResume() {
         super.onResume()
         if (PatternLockUtils.isNeedtoShowGestureLock) {
-            val intent = Intent(this, CustomGestureActivity::class.java)
-            intent.putExtra(PatternLockUtils.appVersion, "8.1.1")
-            startActivity.launch(intent)
+            GlobalVariable.appVersion = "8.1.1"
+            startActivity.launch(Intent(this, CustomGestureActivity::class.java))
         }
     }
 

@@ -1,4 +1,4 @@
-package com.jeff.customgesturelib.version
+package com.jeff.customgesturelib.network
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

@@ -44,7 +44,6 @@ public class PatternLockUtils {
     private static VersionInfo mVersionInfo;
 
     public static Boolean isUpdateDialogShowed = false;
-    public static String appVersion = "AppVersion";
 
     public static ArrayList<UserData> activeAccountList = new ArrayList<>();
 
@@ -87,6 +86,16 @@ public class PatternLockUtils {
     public static String getDeletePattern(Context context) {
         return PreferenceUtils.getString(PreferenceContract.KEY_DELETE_PATTERN_SHA1,
                 PreferenceContract.DEFAULT_DELETE_PATTERN_SHA1, context);
+    }
+
+    public static void setIsNeedToShowSettingDialog(Boolean isNeed, Context context) {
+        PreferenceUtils.putBoolean(PreferenceContract.KEY_IS_SHOW_SETTING_DIALOG_AFTER_UPDATE,
+                isNeed, context);
+    }
+
+    public static Boolean getIsNeedToShowSettingDialog(Context context) {
+        return PreferenceUtils.getBoolean(PreferenceContract.KEY_IS_SHOW_SETTING_DIALOG_AFTER_UPDATE,
+                PreferenceContract.DEFAULT_IS_SHOW_SETTING_DIALOG_AFTER_UPDATE, context);
     }
 
     public static void setActiveAccountList(ArrayList<UserData> list) {

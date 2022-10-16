@@ -95,6 +95,18 @@ class GestureViewModel(application: Application) : AndroidViewModel(application)
         }
     }
 
+    fun checkIsNeedToShowSetting(context: Context, appVersion: String): Boolean{
+        val version: String? = PreferenceUtils.getString(
+            PreferenceContract.KEY_APP_VERSION,
+            PreferenceContract.DEFAULT_APP_VERSION, context
+        )
+        return when{
+            version == null && PatternLockUtils.getIsNeedToShowSettingDialog(context)  == null -> true
+            appVersion != version && PatternLockUtils.getIsNeedToShowSettingDialog(context) -> true
+            else -> false
+        }
+    }
+
     fun isNeedToShowSettingDialog(context: Context, appVersion: String): Boolean {
         val version: String? = PreferenceUtils.getString(
             PreferenceContract.KEY_APP_VERSION,
