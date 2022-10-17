@@ -57,7 +57,7 @@ open class CustomGestureActivity : AppCompatActivity(), OnGestureLockListener {
             if (gestureViewModel.nowType.value == GestureViewModel.SettingType.LOCK) {
                 if (gestureViewModel.checkIsNeedToShowSetting(this, UnitUtils.appVersion)) {
                     setIsNeedToShowSettingDialog(false, this)
-                    UnitUtils.settingUnit?.let { it() }
+                    UnitUtils.settingAccountUnit?.let { it() }
                 }
             } else {
                 setIsNeedToShowSettingDialog(false, this)
@@ -331,7 +331,8 @@ open class CustomGestureActivity : AppCompatActivity(), OnGestureLockListener {
                 setOnLongClickListener {
                     when (gestureViewModel.nowType.value) {
                         GestureViewModel.SettingType.LOCK -> {
-                            UnitUtils.settingUnit?.let { it() }
+                            UnitUtils.settingAccountUnit?.let { it() }
+                            showSettingDialog()
                         }
                         else -> {
                             //do nothing
@@ -346,7 +347,6 @@ open class CustomGestureActivity : AppCompatActivity(), OnGestureLockListener {
 
     private fun showSettingDialog() {
         val settingDialog = SettingAccountDialog(this@CustomGestureActivity)
-
         settingDialog.show(false, UnitUtils.appVersion, getActiveAccountList())
     }
 

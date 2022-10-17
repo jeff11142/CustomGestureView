@@ -33,27 +33,27 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setAccountList() {
-        val data = UserData()
-        data.firstName = "Jeff"
-        data.lastName = "Liu"
-        data.id = "123456"
-
-        val data1 = UserData()
-        data1.firstName = "Jeff"
-        data1.lastName = "Wang"
-        data1.id = "654321"
-
-        val list: ArrayList<UserData> = arrayListOf()
-        list.add(data)
-        list.add(data1)
-        PatternLockUtils.setActiveAccountList(list)
 
         UnitUtils.logoutUnit =  {
             Log.e("jeff", "logout")
         }
 
-        UnitUtils.settingUnit = {
+        UnitUtils.settingAccountUnit = {
             Log.e("jeff", "setting")
+            val data = UserData()
+            data.firstName = "Jeff"
+            data.lastName = "Liu"
+            data.id = "123456"
+
+            val data1 = UserData()
+            data1.firstName = "Jeff"
+            data1.lastName = "Wang"
+            data1.id = "654321"
+
+            val list: ArrayList<UserData> = arrayListOf()
+            list.add(data)
+            list.add(data1)
+            PatternLockUtils.setActiveAccountList(list)
         }
 
     }

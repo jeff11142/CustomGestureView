@@ -5,7 +5,7 @@ class UnitUtils {
         //存放變數
         var appVersion = ""
         var logoutUnit: (() -> Unit)? = null
-        var settingUnit: (() -> Unit)? = null
+        var settingAccountUnit: (() -> Unit)? = null
 
         var isNowCheckEmergencyStatus: Boolean = false
     }
@@ -18,12 +18,12 @@ class UnitUtils {
         logoutUnit = unit
     }
 
-    fun getSettingUnit(): (() -> Unit)? {
-        return settingUnit
+    fun getSettingAccountUnit(): (() -> Unit)? {
+        return settingAccountUnit
     }
 
-    fun setSettingUnit(unit: () -> Unit) {
-        settingUnit = unit
+    fun setSettingAccountUnit(unit: () -> Unit) {
+        settingAccountUnit = unit
     }
 
     fun setAppVersion(version: String) {
