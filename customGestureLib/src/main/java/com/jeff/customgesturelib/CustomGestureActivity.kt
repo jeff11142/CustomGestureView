@@ -163,7 +163,7 @@ open class CustomGestureActivity : AppCompatActivity(), OnGestureLockListener {
                 getString(R.string.Reset)
             ) { _, _ ->
                 clearPattern(this@CustomGestureActivity)
-                setResult(GESTURE_LOGOUT)
+                UnitUtils.logoutUnit?.let { it() }
                 finish()
             }
             forgotDialog = builder.create()

@@ -28,10 +28,6 @@ public class PatternLockUtils {
     public static final int PATTERN_STATUS_UNLOCK = 1;
     public static final int PATTERN_STATUS_DELETE = 2;
 
-    public static final int GESTURE = 997;
-    public static final int GESTURE_LOGOUT = 996;
-    public static final int GESTURE_FORGOT = 995;
-
     public static final int CONFIRM_PATTERN_LOCK = 998;
     public static final int CLOSE_APP = 999;
 
@@ -44,8 +40,6 @@ public class PatternLockUtils {
     public static Boolean isUpdateDialogShowed = false;
 
     public static ArrayList<UserData> activeAccountList = new ArrayList<>();
-
-    public static Unit logoutEvent = null;
 
     private PatternLockUtils() {
     }

@@ -12,19 +12,6 @@ import com.jeff.customgesturelib.utility.PatternLockUtils
 import com.jeff.customgesturelib.utility.UnitUtils
 
 class MainActivity : AppCompatActivity() {
-    private val startActivity =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-            Toast.makeText(this, it.resultCode.toString(), Toast.LENGTH_LONG)
-            when (it.resultCode) {
-                RESULT_OK -> {
-                    Toast.makeText(this, "LOGOUT", Toast.LENGTH_LONG).show()
-                }
-
-                PatternLockUtils.GESTURE_FORGOT -> {
-                    Toast.makeText(this, "FORGOT ", Toast.LENGTH_LONG).show()
-                }
-            }
-        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,7 +49,7 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
         if (PatternLockUtils.isNeedtoShowGestureLock) {
             UnitUtils.appVersion = "8.1.1"
-            startActivity.launch(Intent(this, CustomGestureActivity::class.java))
+            startActivity(Intent(this, CustomGestureActivity::class.java))
         }
     }
 
