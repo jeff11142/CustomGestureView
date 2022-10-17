@@ -3,11 +3,13 @@ package com.jeff.customgestureview;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 
 import com.jeff.customgesturelib.CustomGestureActivity;
 import com.jeff.customgesturelib.setting.UserData;
 import com.jeff.customgesturelib.utility.PatternLockUtils;
+import com.jeff.customgesturelib.utility.TimerUtils;
 import com.jeff.customgesturelib.utility.UnitUtils;
 
 import java.util.ArrayList;
@@ -16,6 +18,7 @@ import kotlin.Unit;
 
 public class JavaActivity extends Activity {
     private final UnitUtils globalVariable = new UnitUtils();
+    private final CountDownTimer timerUtils = new TimerUtils().getCountDownTimer();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,12 +36,14 @@ public class JavaActivity extends Activity {
         if (PatternLockUtils.isNeedtoShowGestureLock) {
             startActivity(new Intent(this, CustomGestureActivity.class));
         }
+        timerUtils.start();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         PatternLockUtils.isNeedtoShowGestureLock = true;
+        timerUtils.cancel();
     }
 
     private Unit onLogoutUnit() {

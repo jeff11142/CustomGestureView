@@ -11,7 +11,5 @@
             android:exported="true"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         </activity>
-
-        <service android:enabled="true" android:name="com.jeff.customgesturelib.service.BackgroundCheckService" />
     </application>
 </manifest>

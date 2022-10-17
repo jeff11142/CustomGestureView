@@ -21,7 +21,8 @@ import com.jeff.customgesturelib.data.VersionInfo
 import com.jeff.customgesturelib.network.ApiService
 import com.jeff.customgesturelib.network.AppClientManager
 import com.jeff.customgesturelib.data.VersionData
-import com.jeff.customgesturelib.service.BackgroundCheckService
+import com.jeff.customgesturelib.utility.EmergencyStatusUtils
+import com.jeff.customgesturelib.utility.TimerUtils
 import com.jeff.customgesturelib.utility.UnitUtils
 import com.jeff.customgesturelib.view.listener.OnGestureLockListener
 import com.jeff.customgesturelib.view.painter.CirclePainter
@@ -38,6 +39,7 @@ open class CustomGestureActivity : AppCompatActivity(), OnGestureLockListener {
     private val gestureViewModel: GestureViewModel by lazy {
         ViewModelProvider(this)[GestureViewModel::class.java]
     }
+    private val timer = TimerUtils().getCountDownTimer()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,16 +65,14 @@ open class CustomGestureActivity : AppCompatActivity(), OnGestureLockListener {
                 setIsNeedToShowSettingDialog(false, this)
             }
         }
-        Intent(this, BackgroundCheckService::class.java).also { intent ->
-            startService(intent)
-        }
+
+        EmergencyStatusUtils().checkEmergencyStatus()
+        timer.start()
     }
 
     override fun onPause() {
-        Intent(this, BackgroundCheckService::class.java).also { intent ->
-            stopService(intent)
-        }
         super.onPause()
+        timer.cancel()
     }
 
     override fun onStarted() {

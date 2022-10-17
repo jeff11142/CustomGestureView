@@ -20,7 +20,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setAccountList() {
-
         UnitUtils.logoutUnit =  {
             Log.e("jeff", "logout")
         }
