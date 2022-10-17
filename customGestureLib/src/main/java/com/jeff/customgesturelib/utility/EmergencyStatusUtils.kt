@@ -1,17 +1,16 @@
 package com.jeff.customgesturelib.utility
 
 import android.util.Log
-import com.jeff.customgesturelib.GlobalVariable
 import com.jeff.customgesturelib.network.ApiService
 import com.jeff.customgesturelib.network.AppClientManager
-import com.jeff.customgesturelib.network.EmergencyData
+import com.jeff.customgesturelib.data.EmergencyData
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class EmergencyStatusUtils {
     companion object {
-        val TAG = "EmergencyStatusUtils"
+        const val TAG = "EmergencyStatusUtils"
     }
 
     fun checkEmergencyStatus() {
@@ -28,7 +27,7 @@ class EmergencyStatusUtils {
                 Log.d(TAG, "emergency = ${data?.emergency}")
 
                 if (data?.emergency.equals("1")) {
-                    GlobalVariable.logoutUnit?.let { it() }
+                    UnitUtils.logoutUnit?.let { it() }
                 }
             }
 

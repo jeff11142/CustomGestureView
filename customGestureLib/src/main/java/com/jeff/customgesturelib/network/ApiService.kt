@@ -1,5 +1,7 @@
 package com.jeff.customgesturelib.network
 
+import com.jeff.customgesturelib.data.EmergencyData
+import com.jeff.customgesturelib.data.VersionData
 import retrofit2.Call
 import retrofit2.http.GET
 

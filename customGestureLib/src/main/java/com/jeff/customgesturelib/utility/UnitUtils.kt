@@ -1,8 +1,6 @@
-package com.jeff.customgesturelib
+package com.jeff.customgesturelib.utility
 
-import android.app.Application
-
-class GlobalVariable : Application() {
+class UnitUtils {
     companion object {
         //存放變數
         var appVersion = ""
@@ -43,5 +41,4 @@ class GlobalVariable : Application() {
     fun getIsNowCheckEmergencyStatus(): Boolean {
         return isNowCheckEmergencyStatus
     }
-
 }

@@ -14,17 +14,15 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
-import com.jeff.customgesturelib.GlobalVariable.Companion.appVersion
 import com.jeff.customgesturelib.databinding.ActivityGestureLookBinding
 import com.jeff.customgesturelib.setting.SettingAccountDialog
-import com.jeff.customgesturelib.utility.PatternLockUtils
 import com.jeff.customgesturelib.utility.PatternLockUtils.*
-import com.jeff.customgesturelib.utility.VersionInfo
+import com.jeff.customgesturelib.data.VersionInfo
 import com.jeff.customgesturelib.network.ApiService
 import com.jeff.customgesturelib.network.AppClientManager
-import com.jeff.customgesturelib.network.VersionData
+import com.jeff.customgesturelib.data.VersionData
 import com.jeff.customgesturelib.service.BackgroundCheckService
-import com.jeff.customgesturelib.utility.EmergencyStatusUtils
+import com.jeff.customgesturelib.utility.UnitUtils
 import com.jeff.customgesturelib.view.listener.OnGestureLockListener
 import com.jeff.customgesturelib.view.painter.CirclePainter
 import com.jeff.customgesturelib.viewmodel.GestureViewModel
@@ -55,11 +53,11 @@ open class CustomGestureActivity : AppCompatActivity(), OnGestureLockListener {
 
     override fun onResume() {
         super.onResume()
-        if (appVersion.isNotBlank()) {
+        if (UnitUtils.appVersion.isNotBlank()) {
             if (gestureViewModel.nowType.value == GestureViewModel.SettingType.LOCK) {
-                if (gestureViewModel.checkIsNeedToShowSetting(this, appVersion)) {
+                if (gestureViewModel.checkIsNeedToShowSetting(this, UnitUtils.appVersion)) {
                     setIsNeedToShowSettingDialog(false, this)
-                    GlobalVariable.settingUnit?.let { it() }
+                    UnitUtils.settingUnit?.let { it() }
                 }
             } else {
                 setIsNeedToShowSettingDialog(false, this)
@@ -104,7 +102,7 @@ open class CustomGestureActivity : AppCompatActivity(), OnGestureLockListener {
                             data?.force,
                             data?.version,
                             data?.downloadUrl
-                        ), appVersion
+                        ), UnitUtils.appVersion
                     )
                 ) {
                     showUpdateDialog(
@@ -215,7 +213,7 @@ open class CustomGestureActivity : AppCompatActivity(), OnGestureLockListener {
                 }
                 GestureViewModel.SettingType.UNLOCK_LOGOUT -> {
 //                    setUserIdSet(arrayListOf(), this)
-                    GlobalVariable.logoutUnit?.let { it() }
+                    UnitUtils.logoutUnit?.let { it() }
                     finishActivity()
                 }
                 else -> {
@@ -333,7 +331,7 @@ open class CustomGestureActivity : AppCompatActivity(), OnGestureLockListener {
                 setOnLongClickListener {
                     when (gestureViewModel.nowType.value) {
                         GestureViewModel.SettingType.LOCK -> {
-                            GlobalVariable.settingUnit?.let { it() }
+                            UnitUtils.settingUnit?.let { it() }
                         }
                         else -> {
                             //do nothing
@@ -349,7 +347,7 @@ open class CustomGestureActivity : AppCompatActivity(), OnGestureLockListener {
     private fun showSettingDialog() {
         val settingDialog = SettingAccountDialog(this@CustomGestureActivity)
 
-        settingDialog.show(false, appVersion, getActiveAccountList())
+        settingDialog.show(false, UnitUtils.appVersion, getActiveAccountList())
     }
 
     private fun finishActivity() {

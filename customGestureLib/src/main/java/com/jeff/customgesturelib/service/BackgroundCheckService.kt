@@ -13,7 +13,7 @@ import com.jeff.customgesturelib.utility.EmergencyStatusUtils
 
 class BackgroundCheckService : Service() {
     companion object {
-        val TAG = "BackgroundCheckService"
+        const val TAG = "BackgroundCheckService"
     }
 
     private val binder = CustomBinder()

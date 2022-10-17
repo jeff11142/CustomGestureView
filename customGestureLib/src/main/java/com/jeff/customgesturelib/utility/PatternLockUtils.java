@@ -1,15 +1,13 @@
 package com.jeff.customgesturelib.utility;
 
-import static android.content.Context.ACTIVITY_SERVICE;
-
 import android.app.Activity;
-import android.app.ActivityManager;
 import android.content.Context;
 import android.os.Build;
 import android.text.TextUtils;
 
 import androidx.annotation.RequiresApi;
 
+import com.jeff.customgesturelib.data.VersionInfo;
 import com.jeff.customgesturelib.setting.UserData;
 
 import java.util.ArrayList;

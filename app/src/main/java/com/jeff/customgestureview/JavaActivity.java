@@ -6,13 +6,13 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.jeff.customgesturelib.CustomGestureActivity;
-import com.jeff.customgesturelib.GlobalVariable;
 import com.jeff.customgesturelib.utility.PatternLockUtils;
+import com.jeff.customgesturelib.utility.UnitUtils;
 
 import kotlin.Unit;
 
 public class JavaActivity extends Activity {
-    private final GlobalVariable globalVariable = new GlobalVariable();
+    private final UnitUtils globalVariable = new UnitUtils();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +30,12 @@ public class JavaActivity extends Activity {
         if (PatternLockUtils.isNeedtoShowGestureLock) {
             startActivity(new Intent(this, CustomGestureActivity.class));
         }
+    }
+
+    @Override
+    protected void  onPause() {
+        super.onPause();
+        PatternLockUtils.isNeedtoShowGestureLock = true;
     }
 
     private Unit onLogoutUnit() {

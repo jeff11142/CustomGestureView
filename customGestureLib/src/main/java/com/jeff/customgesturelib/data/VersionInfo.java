@@ -1,4 +1,4 @@
-package com.jeff.customgesturelib.utility;
+package com.jeff.customgesturelib.data;
 
 
 public class VersionInfo {

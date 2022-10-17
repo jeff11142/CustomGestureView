@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.jeff.customgesturelib">
     <application
-        android:name=".GlobalVariable"
         android:allowBackup="false"
         android:supportsRtl="false"
         tools:replace="android:supportsRtl">
