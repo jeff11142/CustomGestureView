@@ -6,6 +6,7 @@ class UnitUtils {
         var appVersion = ""
         var logoutUnit: (() -> Unit)? = null
         var settingAccountUnit: (() -> Unit)? = null
+        var forceLogoutUnit: (() -> Unit)? = null
 
         var isNowCheckEmergencyStatus: Boolean = false
     }
@@ -16,6 +17,14 @@ class UnitUtils {
 
     fun setLogoutUnit(unit: () -> Unit) {
         logoutUnit = unit
+    }
+
+    fun getForceLogoutUnit(): (() -> Unit)? {
+        return forceLogoutUnit
+    }
+
+    fun setForceLogoutUnit(unit: () -> Unit) {
+        forceLogoutUnit = unit
     }
 
     fun getSettingAccountUnit(): (() -> Unit)? {

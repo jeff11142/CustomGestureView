@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
 import android.text.TextUtils
-import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
@@ -122,8 +121,6 @@ class GestureViewModel(application: Application) : AndroidViewModel(application)
     @SuppressLint("CommitPrefEdits")
     fun setCommonGestureLockFromSharedPreferences(context: Context, result: String) {
         PatternLockUtils.setPattern(getResultList(result), context)
-
-        Log.d(TAG, "save COMMOM_GESTURE_LOOK success")
         getCommonGestureLockFromSharedPreferences(context)
     }
 
@@ -134,7 +131,6 @@ class GestureViewModel(application: Application) : AndroidViewModel(application)
     @SuppressLint("CommitPrefEdits")
     fun setSpecialGestureLockFromSharedPreferences(context: Context, result: String) {
         PatternLockUtils.setDeletePattern(getResultList(result), context)
-        Log.d(TAG, "save SPECIAL_GESTURE_LOOK success")
         getSpecialGestureLockFromSharedPreferences(context)
     }
 

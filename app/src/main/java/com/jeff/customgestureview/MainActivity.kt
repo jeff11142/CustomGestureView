@@ -2,9 +2,6 @@ package com.jeff.customgestureview
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.jeff.customgesturelib.CustomGestureActivity
 import com.jeff.customgesturelib.setting.UserData
@@ -20,12 +17,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setAccountList() {
-        UnitUtils.logoutUnit =  {
-            Log.e("jeff", "logout")
+        UnitUtils.logoutUnit = {
         }
 
         UnitUtils.settingAccountUnit = {
-            Log.e("jeff", "setting")
             val data = UserData()
             data.firstName = "Jeff"
             data.lastName = "Liu"

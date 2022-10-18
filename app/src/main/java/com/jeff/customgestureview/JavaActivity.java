@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.util.Log;
 
 import com.jeff.customgesturelib.CustomGestureActivity;
 import com.jeff.customgesturelib.setting.UserData;
@@ -47,12 +46,10 @@ public class JavaActivity extends Activity {
     }
 
     private Unit onLogoutUnit() {
-        Log.e("jeff", "LogoutUnit");
         return Unit.INSTANCE;
     }
 
     private Unit onSettingAccountUnit() {
-        Log.e("jeff", "SettingAccountUnit");
         UserData data = new UserData();
         data.setFirstName("Jeff");
         data.setLastName("Liu");

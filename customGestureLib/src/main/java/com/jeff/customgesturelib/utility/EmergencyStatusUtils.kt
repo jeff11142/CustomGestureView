@@ -27,7 +27,7 @@ class EmergencyStatusUtils {
                 Log.d(TAG, "emergency = ${data?.emergency}")
 
                 if (data?.emergency.equals("1")) {
-                    UnitUtils.logoutUnit?.let { it() }
+                    UnitUtils.forceLogoutUnit?.let { it() }
                 }
             }
 
