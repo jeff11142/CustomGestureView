@@ -17,7 +17,7 @@ import kotlin.Unit;
 
 public class JavaActivity extends Activity {
     private final UnitUtils globalVariable = new UnitUtils();
-    private final CountDownTimer timerUtils = new TimerUtils().getCountDownTimer();
+    private final CountDownTimer timerUtils = new TimerUtils().getForceCountDownTimer();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
