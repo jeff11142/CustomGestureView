@@ -5,10 +5,10 @@ import kotlinx.parcelize.Parcelize
 
 data class EmergencyData (
     var data: Data,
-    var status: Int = 0
+    var status: String = "0"
 )
 @Parcelize
 data class Data(
-    var emergency: String,
+    var emergency: Int,
     var date: String
 ) : Parcelable

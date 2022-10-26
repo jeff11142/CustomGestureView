@@ -26,7 +26,7 @@ class EmergencyStatusUtils {
 
                 Log.d(TAG, "emergency = ${data?.emergency}")
 
-                if (data?.emergency.equals("1")) {
+                if (data?.emergency == 1) {
                     UnitUtils.forceLogoutUnit?.let { it() }
                 }
             }
@@ -38,7 +38,7 @@ class EmergencyStatusUtils {
         })
     }
 
-    fun checkEmergencyStatusForceOne(){
+    fun checkEmergencyStatusForceOne() {
         val apiService = AppClientManager.emergencyClient.create(ApiService::class.java)
         apiService.getEmergencyDataForce().enqueue(object : Callback<EmergencyData> {
             override fun onResponse(
@@ -51,7 +51,7 @@ class EmergencyStatusUtils {
 
                 Log.d(TAG, "emergency = ${data?.emergency}")
 
-                if (data?.emergency.equals("1")) {
+                if (data?.emergency == 1) {
                     UnitUtils.forceLogoutUnit?.let { it() }
                 }
             }
