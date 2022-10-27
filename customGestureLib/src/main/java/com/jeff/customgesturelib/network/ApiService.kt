@@ -22,7 +22,4 @@ interface ApiService {
     //  IV. 當data陣列中emergency的值為0時 或 介接失敗，不做任何動作
     @GET("emergency_status.php")
     fun getEmergencyData(): Call<EmergencyData>
-
-     @GET("emergency_status.php?emergency_test=1")
-    fun getEmergencyDataForce(): Call<EmergencyData>
 }

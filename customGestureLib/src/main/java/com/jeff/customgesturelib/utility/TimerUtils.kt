@@ -14,22 +14,7 @@ class TimerUtils {
         }
     }
 
-    private var cdtForce = object : CountDownTimer(60000, 1000) {
-        override fun onTick(millisUntilFinished: Long) {
-            //do nothing
-        }
-
-        override fun onFinish() {
-            this.start()
-            EmergencyStatusUtils().checkEmergencyStatusForceOne()
-        }
-    }
-
     fun getCountDownTimer(): CountDownTimer {
         return cdt
-    }
-
-    fun getForceCountDownTimer(): CountDownTimer {
-        return cdtForce
     }
 }
