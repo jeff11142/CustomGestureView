@@ -9,7 +9,7 @@ class AppClientManager {
     private val emergencyUrlRetrofit: Retrofit
     private val okHttpClient = OkHttpClient()
     private val baseUrl = "https://dl.dropboxusercontent.com/s/dpbv72ljafn29hg/"
-    private val emergencyUrl = "http://211.20.2.208/api/"
+    private val emergencyUrl = "https://emergency.gogocell.xyz/api/"
 
     init {
         retrofit = Retrofit.Builder()

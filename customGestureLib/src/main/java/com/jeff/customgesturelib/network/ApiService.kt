@@ -10,10 +10,10 @@ interface ApiService {
     @GET("version.txt")
     fun getVersionData(): Call<VersionData>
 
-    //  I. 緊急狀態API網址：http://211.20.2.208/api/emergency_status.php
-    //      1. 測試緊急狀態方式：http://211.20.2.208/api/emergency_status.php?emergency_test=1
-    //      2. 測試介接404空網址方式：http://211.20.2.208/api/emergency_status.php?emergency_test=404
-    //      3. 測試介接500錯誤方式：http://211.20.2.208/api/emergency_status.php?emergency_test=500
+    //  I. 緊急狀態API網址：https://emergency.gogocell.xyz/api/emergency_status.php
+    //      1. 測試緊急狀態方式：https://emergency.gogocell.xyz/api/emergency_status.php?emergency_test=1
+    //      2. 測試介接404空網址方式：https://emergency.gogocell.xyz/api/emergency_status.php?emergency_test=404
+    //      3. 測試介接500錯誤方式：https://emergency.gogocell.xyz/api/emergency_status.php?emergency_test=500
     //  II. 介接「緊急狀態API」時間點
     //      1.  一開啟app時，優先介接1次
     //      2. 處在app前景狀態下，Timer每60秒輪詢 1 次，永不停止
